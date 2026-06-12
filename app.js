@@ -1,4 +1,4 @@
-const API = "COLE_AQUI_SUA_URL_DO_APPS_SCRIPT";
+const API = "https://script.google.com/macros/s/AKfycbwn3r4tYDI_XFsqRnmIOWz-ZwG4Cd8wPMSSBkgg9bGq7yH6ZmeE3ZBGr8aYXApkw-zJhQ/exec";
 
 async function carregarRanking() {
 
