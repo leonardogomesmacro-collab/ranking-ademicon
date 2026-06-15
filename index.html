@@ -1,22 +1,212 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Ranking Ademicon</title>
 
-<link rel="stylesheet" href="style.css">
+<style>
+
+body{
+
+margin:0;
+background:#000;
+font-family:Arial;
+color:white;
+
+}
+
+.container{
+
+display:grid;
+grid-template-columns: 1fr 1fr;
+height:100vh;
+
+}
+
+.left{
+
+background:url('bg.jpg');
+background-size:cover;
+padding:30px;
+
+}
+
+.right{
+
+padding:30px;
+
+}
+
+.logo{
+
+font-size:40px;
+font-weight:bold;
+
+}
+
+.podium{
+
+display:flex;
+justify-content:center;
+align-items:flex-end;
+height:500px;
+margin-top:50px;
+
+}
+
+.card{
+
+width:250px;
+text-align:center;
+margin:10px;
+
+}
+
+.first{
+
+transform:scale(1.2);
+
+}
+
+.place{
+
+font-size:40px;
+color:gold;
+
+}
+
+table{
+
+width:100%;
+border-collapse:collapse;
+
+}
+
+th{
+
+background:#ff0000;
+padding:15px;
+
+}
+
+td{
+
+padding:15px;
+border:1px solid #ff0000;
+
+}
+
+</style>
 
 </head>
 
 <body>
 
-<h1>RANKING ADEMICON</h1>
+<div class="container">
 
-<div id="ranking"></div>
+<div class="left">
 
-<script src="app.js"></script>
+<div class="logo">
+ADEMICON
+</div>
+
+<div class="podium">
+
+<div class="card" id="segundo"></div>
+
+<div class="card first" id="primeiro"></div>
+
+<div class="card" id="terceiro"></div>
+
+</div>
+
+</div>
+
+<div class="right">
+
+<h1>TOP 10</h1>
+
+<table>
+
+<thead>
+
+<tr>
+<th>POSIÇÃO</th>
+<th>CONSULTOR</th>
+<th>VOLUME</th>
+</tr>
+
+</thead>
+
+<tbody id="ranking">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+const API =
+"https://SEU_APPS_SCRIPT/exec";
+
+async function carregar(){
+
+const r = await fetch(API);
+
+const dados = await r.json();
+
+document.getElementById("primeiro").innerHTML=
+`
+<h2>🥇</h2>
+<h3>${dados[0].consultor}</h3>
+<h1>R$ ${dados[0].valor}</h1>
+`;
+
+document.getElementById("segundo").innerHTML=
+`
+<h2>🥈</h2>
+<h3>${dados[1].consultor}</h3>
+<h1>R$ ${dados[1].valor}</h1>
+`;
+
+document.getElementById("terceiro").innerHTML=
+`
+<h2>🥉</h2>
+<h3>${dados[2].consultor}</h3>
+<h1>R$ ${dados[2].valor}</h1>
+`;
+
+let html = "";
+
+dados.slice(3,10).forEach(item=>{
+
+html += `
+<tr>
+<td>${item.posicao}</td>
+<td>${item.consultor}</td>
+<td>R$ ${item.valor}</td>
+</tr>
+`;
+
+});
+
+document.getElementById("ranking").innerHTML = html;
+
+}
+
+carregar();
+
+setInterval(carregar,10000);
+
+</script>
 
 </body>
+
 </html>
